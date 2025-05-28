@@ -12,7 +12,7 @@
 <hr />
 <Counter />
 <hr />
-<Button>
+<Button size="lg">
 	{#snippet left(isHovered)}
 		{#if isHovered}
 			<Search />
