@@ -8,9 +8,18 @@
 		children: Snippet<[boolean]>;
 		size?: 'sm' | 'lg';
 		shadow?: boolean;
+		onlefthover?: () => void;
 	};
 
-	let { left, right, size = 'sm', shadow = false, children, ...props }: Props = $props();
+	let {
+		left,
+		right,
+		size = 'sm',
+		shadow = false,
+		children,
+		onlefthover,
+		...props
+	}: Props = $props();
 
 	let isLeftHovered = $state(false);
 </script>
@@ -21,6 +30,7 @@
 			role="presentation"
 			class="left-content"
 			onmouseenter={() => {
+				onlefthover?.();
 				isLeftHovered = true;
 			}}
 			onmouseleave={() => {
