@@ -4,26 +4,51 @@
 	import Counter from '$lib/components/Counter.svelte';
 	import DisplayName from '$lib/components/DisplayName.svelte';
 	import RandomNumber from '$lib/components/RandomNumber.svelte';
+
+	let html = '<p>dwdwdw</p>';
 </script>
 
 <DisplayName />
 <hr />
+
 <RandomNumber />
 <hr />
+
 <Counter />
 <hr />
-<Button size="lg" bgColor="green" textColor="yellow">
-	{#snippet left(isHovered)}
-		{#if isHovered}
-			<Search />
-		{:else}
+
+<div class="wrapper">
+	{@html html}
+	<Button size="lg" bgColor="green" textColor="yellow">
+		{#snippet left(isHovered)}
+			{#if isHovered}
+				<Search />
+			{:else}
+				<AlarmCheck />
+			{/if}
+		{/snippet}
+
+		Text
+
+		{#snippet right()}
 			<AlarmCheck />
-		{/if}
-	{/snippet}
+		{/snippet}
+	</Button>
+</div>
 
-	Text
+<style>
+	:global {
+		body {
+			background-color: #222;
+		}
+	}
 
-	{#snippet right()}
-		<AlarmCheck />
-	{/snippet}
-</Button>
+	.wrapper :global {
+		p {
+			color: white;
+		}
+		button {
+			background-color: blue !important;
+		}
+	}
+</style>
