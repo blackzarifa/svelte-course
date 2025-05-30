@@ -19,7 +19,7 @@
 
 <div class="wrapper">
 	{@html html}
-	<Button size="lg" bgColor="green" textColor="yellow">
+	<Button size="lg" --buttonBgColor="yellow" --buttonTextColor="green">
 		{#snippet left(isHovered)}
 			{#if isHovered}
 				<Search />
@@ -46,9 +46,6 @@
 	.wrapper :global {
 		p {
 			color: white;
-		}
-		button {
-			background-color: blue !important;
 		}
 	}
 </style>
