@@ -21,10 +21,20 @@
 		...props
 	}: Props = $props();
 
+	let button: HTMLButtonElement;
+
 	let isLeftHovered = $state(false);
+
+	export function focus() {
+		button.focus();
+	}
+
+	export function getButton() {
+		return button;
+	}
 </script>
 
-<button class:sm={size == 'sm'} class:lg={size == 'lg'} class:shadow {...props}>
+<button bind:this={button} class:sm={size == 'sm'} class:lg={size == 'lg'} class:shadow {...props}>
 	{#if left}
 		<div
 			role="presentation"

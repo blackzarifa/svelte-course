@@ -6,6 +6,11 @@
 	import RandomNumber from '$lib/components/RandomNumber.svelte';
 
 	let html = '<p>dwdwdw</p>';
+	let button: Button;
+
+	$effect(() => {
+		button.getButton().focus();
+	});
 </script>
 
 <DisplayName />
@@ -27,6 +32,7 @@
 		}}
 	>
 		<Button
+			bind:this={button}
 			size="lg"
 			--buttonBgColor="yellow"
 			--buttonTextColor="green"
