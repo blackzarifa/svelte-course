@@ -22,26 +22,6 @@
 	$effect(() => {
 		button.getButton().focus();
 	});
-	$effect(() => {
-		console.log('object effect');
-		console.log(object);
-	});
-	$effect(() => {
-		console.log('object.firstName effect');
-		console.log(object.firstName);
-	});
-	$effect(() => {
-		console.log('object.address.city');
-		console.log(object.address.city);
-	});
-	$effect(() => {
-		console.log('array');
-		console.log(array[0]);
-	});
-	$effect(() => {
-		console.log('array.length');
-		console.log(array.length);
-	});
 </script>
 
 <DisplayName />
@@ -109,6 +89,13 @@
 		}}
 	>
 		Add to array
+	</button>
+	<button
+		onclick={() => {
+			console.log($state.snapshot(object));
+		}}
+	>
+		Log Snapshot
 	</button>
 </div>
 <hr />
