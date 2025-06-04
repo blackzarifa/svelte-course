@@ -5,6 +5,7 @@
 	import DisplayName from '$lib/components/DisplayName.svelte';
 	import RandomNumber from '$lib/components/RandomNumber.svelte';
 	import generateNotifications from '$lib/utils/generate-notifications';
+	import Notification from '$lib/components/Notification.svelte';
 
 	let html = '<p>dwdwdw</p>';
 	let button: Button;
@@ -18,7 +19,7 @@
 			street: 'Street'
 		}
 	});
-	let notifications = $state(generateNotifications());
+	let notifications = $state(generateNotifications(3));
 
 	$effect(() => {
 		button.getButton().focus();
@@ -102,12 +103,14 @@
 <hr />
 
 <ul>
-	{#each notifications as { title, body, date }}
-		{@const dateObject = new Date(date)}
+	{#each notifications as notification, index}
 		<li>
-			<h5>{title}</h5>
-			<p>{body}</p>
-			<time datetime={dateObject.toISOString()}>{dateObject.toLocaleDateString()}</time>
+			<Notification
+				{notification}
+				onremove={(id) => {
+					notifications.splice(index, 1);
+				}}
+			/>
 		</li>
 	{:else}
 		<p>No notifications</p>
@@ -126,6 +129,15 @@
 	.wrapper :global {
 		p {
 			color: white;
+		}
+	}
+
+	ul {
+		list-style: none;
+		padding: 10px;
+		margin: 0;
+		li {
+			margin-bottom: 10px;
 		}
 	}
 </style>
