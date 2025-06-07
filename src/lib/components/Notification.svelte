@@ -11,7 +11,7 @@
 			body: string;
 			date: number;
 		};
-		onremove?: () => void;
+		onremove?: (id: string) => void;
 	} = $props();
 
 	const { title, body, date, id } = $derived(notification);

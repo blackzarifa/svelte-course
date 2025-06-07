@@ -102,13 +102,20 @@
 </div>
 <hr />
 
+<Button
+	onclick={() => {
+		notifications = generateNotifications(3);
+	}}
+>
+	Refresh
+</Button>
 <ul>
 	{#each notifications as notification, index (notification.id)}
 		<li>
 			<Notification
 				{notification}
-				onremove={() => {
-					notifications.splice(index, 1);
+				onremove={(id) => {
+					notifications = notifications.filter((n) => n.id !== id);
 				}}
 			/>
 		</li>
