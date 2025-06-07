@@ -19,7 +19,7 @@
 			street: 'Street'
 		}
 	});
-	let notifications = $state(generateNotifications(3));
+	let notifications = $state.raw(generateNotifications(3));
 
 	$effect(() => {
 		button.getButton().focus();
@@ -102,27 +102,29 @@
 </div>
 <hr />
 
-<Button
-	onclick={() => {
-		notifications = generateNotifications(3);
-	}}
->
-	Refresh
-</Button>
-<ul>
-	{#each notifications as notification, index (notification.id)}
-		<li>
-			<Notification
-				{notification}
-				onremove={(id) => {
-					notifications = notifications.filter((n) => n.id !== id);
-				}}
-			/>
-		</li>
-	{:else}
-		<p>No notifications</p>
-	{/each}
-</ul>
+<div>
+	<Button
+		onclick={() => {
+			notifications = generateNotifications(3);
+		}}
+	>
+		Refresh
+	</Button>
+	<ul>
+		{#each notifications as notification}
+			<li>
+				<Notification
+					{notification}
+					onremove={(id) => {
+						notifications = notifications.filter((n) => n.id !== id);
+					}}
+				/>
+			</li>
+		{:else}
+			<p>No notifications</p>
+		{/each}
+	</ul>
+</div>
 <hr />
 
 <style>

@@ -26,11 +26,9 @@
 		<Button
 			--buttonBgColor="rgb(218, 84, 84)"
 			onclick={() => {
-				onremove?.();
-			}}
+				onremove?.(id);
+			}}>Remove</Button
 		>
-			Remove
-		</Button>
 	</div>
 </div>
 
