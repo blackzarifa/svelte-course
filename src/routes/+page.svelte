@@ -103,11 +103,11 @@
 <hr />
 
 <ul>
-	{#each notifications as notification, index}
+	{#each notifications as notification, index (notification.id)}
 		<li>
 			<Notification
 				{notification}
-				onremove={(id) => {
+				onremove={() => {
 					notifications.splice(index, 1);
 				}}
 			/>

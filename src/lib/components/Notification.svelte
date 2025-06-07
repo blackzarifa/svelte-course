@@ -11,11 +11,11 @@
 			body: string;
 			date: number;
 		};
-		onremove?: (id: string) => void;
+		onremove?: () => void;
 	} = $props();
 
-	const { title, body, date, id } = notification;
-	const dateObject = new Date(date);
+	const { title, body, date, id } = $derived(notification);
+	const dateObject = $derived(new Date(date));
 </script>
 
 <div class="notification">
@@ -26,7 +26,7 @@
 		<Button
 			--buttonBgColor="rgb(218, 84, 84)"
 			onclick={() => {
-				onremove?.(id);
+				onremove?.();
 			}}
 		>
 			Remove
