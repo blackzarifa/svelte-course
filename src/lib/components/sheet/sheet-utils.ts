@@ -1,3 +1,5 @@
+export type Cell = { value?: string; bgColor?: string; color?: string };
+
 // https://stackoverflow.com/questions/9905533/convert-excel-column-alphabet-e-g-aa-to-number-e-g-25
 export function alphabetToNumber(letters: string) {
 	return letters.split('').reduce((r, a) => r * 26 + parseInt(a, 36) - 9, 0);
