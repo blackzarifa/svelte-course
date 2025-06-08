@@ -46,13 +46,61 @@
 	});
 </script>
 
-<DisplayName />
+<CurrencyConverter />
 <hr />
 
-<RandomNumber />
+<Sheet bind:data />
 <hr />
 
-<Counter />
+<div>
+	<Button
+		onclick={() => {
+			notifications = generateNotifications(3);
+		}}
+	>
+		Refresh
+	</Button>
+	<ul>
+		{#each notifications as notification}
+			<li>
+				<Notification
+					{notification}
+					onremove={(id) => {
+						notifications = notifications.filter((n) => n.id !== id);
+					}}
+				/>
+			</li>
+		{:else}
+			<p>No notifications</p>
+		{/each}
+	</ul>
+</div>
+<hr />
+
+<div>
+	<h2>{object.firstName}</h2>
+	Add commentMore actions
+	<h2>{object.address.city}</h2>
+
+	<input bind:value={object.firstName} />
+	<input bind:value={object.address.city} />
+	<input bind:value={object.address.street} />
+	<p>{array}</p>
+	<button
+		onclick={() => {
+			array[1] = Math.random() * 10;
+		}}
+	>
+		Add to array
+	</button>
+	<button
+		onclick={() => {
+			console.log($state.snapshot(object));
+		}}
+	>
+		Log Snapshot
+	</button>
+</div>
 <hr />
 
 <div class="wrapper">
@@ -96,61 +144,13 @@
 </div>
 <hr />
 
-<div>
-	<h2>{object.firstName}</h2>
-	Add commentMore actions
-	<h2>{object.address.city}</h2>
-
-	<input bind:value={object.firstName} />
-	<input bind:value={object.address.city} />
-	<input bind:value={object.address.street} />
-	<p>{array}</p>
-	<button
-		onclick={() => {
-			array[1] = Math.random() * 10;
-		}}
-	>
-		Add to array
-	</button>
-	<button
-		onclick={() => {
-			console.log($state.snapshot(object));
-		}}
-	>
-		Log Snapshot
-	</button>
-</div>
+<Counter />
 <hr />
 
-<div>
-	<Button
-		onclick={() => {
-			notifications = generateNotifications(3);
-		}}
-	>
-		Refresh
-	</Button>
-	<ul>
-		{#each notifications as notification}
-			<li>
-				<Notification
-					{notification}
-					onremove={(id) => {
-						notifications = notifications.filter((n) => n.id !== id);
-					}}
-				/>
-			</li>
-		{:else}
-			<p>No notifications</p>
-		{/each}
-	</ul>
-</div>
+<RandomNumber />
 <hr />
 
-<Sheet bind:data />
-<hr />
-
-<CurrencyConverter />
+<DisplayName />
 
 <style>
 	:global {
