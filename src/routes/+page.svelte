@@ -7,6 +7,7 @@
 	import generateNotifications from '$lib/utils/generate-notifications';
 	import Notification from '$lib/components/Notification.svelte';
 	import Sheet from '$lib/components/sheet/Sheet.svelte';
+	import CurrencyConverter from '$lib/components/CurrencyConverter.svelte';
 
 	let html = '<p>dwdwdw</p>';
 	let button: Button;
@@ -148,6 +149,8 @@
 
 <Sheet bind:data />
 <hr />
+
+<CurrencyConverter />
 
 <style>
 	:global {
