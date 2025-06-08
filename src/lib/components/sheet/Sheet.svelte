@@ -155,7 +155,7 @@
 	<br />
 {/if}
 
-<style lang="scss">
+<style>
 	.sheet {
 		border-collapse: collapse;
 		font-family: sans-serif;
@@ -178,10 +178,6 @@
 				min-width: 100px;
 				height: 30px;
 				border: 1px solid #393939;
-				span {
-					padding: 5px;
-					display: inline-block;
-				}
 				input {
 					width: 100%;
 					height: 100%;
