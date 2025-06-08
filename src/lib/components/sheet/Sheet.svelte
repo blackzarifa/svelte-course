@@ -58,9 +58,8 @@
 				},
 				funcName === 'MULTIPLY' ? 1 : 0
 			);
-		} else {
-			return value;
 		}
+		return value;
 	}
 </script>
 
