@@ -1,21 +1,31 @@
 <script lang="ts">
-	import dummyRates from '$lib/utils/dummy-rates';
+	import { onMount } from 'svelte';
 
 	let baseValue: number | undefined = $state(1);
 	let baseCurrency = $state('usd');
-	let baseRates = $derived(dummyRates[baseCurrency]);
+	let baseRates: Record<string, number> = $state({});
 	let targetCurrency = $state('eur');
 
 	let targetValue = {
 		get value() {
-			console.log('target', calculateTarget());
 			return calculateTarget();
 		},
 		set value(v) {
-			console.log('base', calculateBase(v));
 			baseValue = calculateBase(v);
 		}
 	};
+
+	const currenciesPromise = fetch(
+		'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json'
+	).then((r) => r.json());
+
+	async function fetchRates() {
+		const res = await fetch(
+			`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${baseCurrency}.json`
+		);
+		const resJSON = await res.json();
+		baseRates = resJSON[baseCurrency];
+	}
 
 	function calculateTarget() {
 		return (
@@ -30,44 +40,58 @@
 			+(targetValue / baseRates[targetCurrency]).toFixed(3)
 		);
 	}
+	onMount(() => {
+		fetchRates();
+	});
 </script>
 
-<div class="wrapper">
-	<div class="conversion">
-		<span class="base"
-			>{Number(1).toLocaleString('en-US', {
-				style: 'currency',
-				currency: baseCurrency,
-				currencyDisplay: 'name'
-			})} equals</span
-		>
-		<span class="target"
-			>{baseRates[targetCurrency].toLocaleString('en-US', {
-				style: 'currency',
-				currency: targetCurrency,
-				currencyDisplay: 'name'
-			})}</span
-		>
-	</div>
-	<div class="base">
-		<input type="number" bind:value={baseValue} />
-		<select bind:value={baseCurrency}>
-			<option value="usd">United States Dollar</option>
-			<option value="eur">Euro</option>
-			<option value="gbp">Pound Sterling</option>
-		</select>
-	</div>
-	<div class="target">
-		<div class="target">
-			<input bind:value={targetValue.value} type="number" />
-			<select bind:value={targetCurrency}>
-				<option value="usd">United States Dollar</option>
-				<option value="eur">Euro</option>
-				<option value="gbp">Pound Sterling</option>
+{#await currenciesPromise}Add commentMore actions
+	<p>Loading...</p>
+{:then currencies}
+	<div class="wrapper">
+		<div class="conversion">
+			<span class="base"
+				>{Number(1).toLocaleString('en-US', {
+					style: 'currency',
+					currency: baseCurrency,
+					currencyDisplay: 'name'
+				})} equals</span
+			>
+			<span class="target"
+				>{baseRates[targetCurrency]?.toLocaleString('en-US', {
+					style: 'currency',
+					currency: targetCurrency,
+					currencyDisplay: 'name'
+				})}</span
+			>
+		</div>
+		<div class="base">
+			<input type="number" bind:value={baseValue} />
+			<select
+				bind:value={baseCurrency}
+				onchange={() => {
+					fetchRates();
+				}}
+			>
+				{#each Object.entries(currencies) as [key, value]}Add commentMore actions
+					<option value={key}>{value}</option>
+				{/each}
 			</select>
 		</div>
+		<div class="target">
+			<div class="target">
+				<input bind:value={targetValue.value} type="number" />
+				<select bind:value={targetCurrency}>
+					{#each Object.entries(currencies) as [key, value]}
+						<option value={key}>{value}</option>
+					{/each}
+				</select>
+			</div>
+		</div>
 	</div>
-</div>
+{:catch error}
+	<p>Something went wrong. {error}</p>
+{/await}
 
 <style lang="scss">
 	.wrapper {
