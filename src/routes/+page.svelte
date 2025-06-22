@@ -8,6 +8,8 @@
 	import Notification from '$lib/components/Notification.svelte';
 	import Sheet from '$lib/components/sheet/Sheet.svelte';
 	import CurrencyConverter from '$lib/components/CurrencyConverter.svelte';
+	import ClickToCount from '$lib/components/ClickToCount.svelte';
+	import DoubleClickToCount from '$lib/components/DoubleClickToCount.svelte';
 
 	let html = '<p>dwdwdw</p>';
 	let button: Button;
@@ -45,6 +47,10 @@
 		button.getButton().focus();
 	});
 </script>
+
+<ClickToCount />
+<DoubleClickToCount />
+<hr />
 
 <CurrencyConverter />
 <hr />
