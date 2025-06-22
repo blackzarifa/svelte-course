@@ -79,7 +79,6 @@
 
 <div>
 	<h2>{object.firstName}</h2>
-	Add commentMore actions
 	<h2>{object.address.city}</h2>
 
 	<input bind:value={object.firstName} />
